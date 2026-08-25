@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Laptop Price Predictor</title>
+</head>
+<body>
+    <main class="wrapper">
+        <header class="hero">
+            <div>
+                <p class="eyebrow">Laptop intelligence</p>
+                <h1 class="title">Laptop Price Predictor</h1>
+                <p class="subtitle">A practical estimate based on hardware, operating system, and display features.</p>
+            </div>
+            <div class="status"><span></span> Model ready</div>
+        </header>
+
+        <section class="model-card" aria-labelledby="model-heading">
+            <div class="section-heading">
+                <p class="eyebrow">About the model</p>
+                <h2 id="model-heading">What this estimate means</h2>
+            </div>
+            <p class="model-copy">Enter the laptop details to receive an estimated price in US dollars. Use the result as a helpful guide when comparing laptops, not as a guaranteed selling price.</p>
+            <div class="model-stats">
+                <div><strong>76.4%</strong><span>predicted accuracy</span></div>
+                <div><strong>USD</strong><span>price currency</span></div>
+                <div><strong>Guide</strong><span>not a fixed price</span></div>
+            </div>
+            <p class="model-note">⚠️ Accuracy may change because predictions depend on the training dataset and current market prices.</p>
+        </section>
+
+        <section class="form-panel" aria-labelledby="details-heading">
+            <div class="section-heading">
+                <p class="eyebrow">Configuration</p>
+                <h2 id="details-heading">Enter laptop details</h2>
+            </div>
+        <form action="/" method="POST">
+            <div class="form">
+                <div class="inputfield">
+                    <label for="ram">Ram (GB)</label>
+                    <div class="custom_select">
+                        <select class="input" id="ram" name="ram" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="2" {% if request.form.get('ram') == '2' %}selected{% endif %}>2 GB</option>
+                            <option value="4" {% if request.form.get('ram') == '4' %}selected{% endif %}>4 GB</option>
+                            <option value="6" {% if request.form.get('ram') == '6' %}selected{% endif %}>6 GB</option>
+                            <option value="8" {% if request.form.get('ram') == '8' %}selected{% endif %}>8 GB</option>
+                            <option value="12" {% if request.form.get('ram') == '12' %}selected{% endif %}>12 GB</option>
+                            <option value="16" {% if request.form.get('ram') == '16' %}selected{% endif %}>16 GB</option>
+                            <option value="24" {% if request.form.get('ram') == '24' %}selected{% endif %}>24 GB</option>
+                            <option value="32" {% if request.form.get('ram') == '32' %}selected{% endif %}>32 GB</option>
+                            <option value="64" {% if request.form.get('ram') == '64' %}selected{% endif %}>64 GB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="weight">Weight (Kg)</label>
+                    <div class="custom_select">
+                        <select class="input" id="weight" name="weight" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="0.92" {% if request.form.get('weight') == '0.92' %}selected{% endif %}>Under 1 kg</option>
+                            <option value="1.5" {% if request.form.get('weight') == '1.5' %}selected{% endif %}>1 - 1.9 kg</option>
+                            <option value="2.0" {% if request.form.get('weight') == '2.0' %}selected{% endif %}>2 - 2.4 kg</option>
+                            <option value="2.5" {% if request.form.get('weight') == '2.5' %}selected{% endif %}>2.5 - 2.9 kg</option>
+                            <option value="3.0" {% if request.form.get('weight') == '3.0' %}selected{% endif %}>3 - 3.9 kg</option>
+                            <option value="4.0" {% if request.form.get('weight') == '4.0' %}selected{% endif %}>4 kg and above</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="company">Company</label>
+                    <div class = "custom_select">
+                        <select name="company" id="company" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="acer" {% if request.form.get('company') == 'acer' %}selected{% endif %}>Acer</option>
+                            <option value="apple" {% if request.form.get('company') == 'apple' %}selected{% endif %}>Apple</option>
+                            <option value="asus" {% if request.form.get('company') == 'asus' %}selected{% endif %}>Asus</option>
+                            <option value="dell" {% if request.form.get('company') == 'dell' %}selected{% endif %}>Dell</option>
+                            <option value="hp" {% if request.form.get('company') == 'hp' %}selected{% endif %}>HP</option>
+                            <option value="lenovo" {% if request.form.get('company') == 'lenovo' %}selected{% endif %}>Lenovo</option>
+                            <option value="msi" {% if request.form.get('company') == 'msi' %}selected{% endif %}>MSI</option>
+                            <option value="toshiba" {% if request.form.get('company') == 'toshiba' %}selected{% endif %}>Toshiba</option>
+                            <option value="other" {% if request.form.get('company') == 'other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="typename">Type Name</label>
+                    <div class = "custom_select">
+                        <select name="typename" id="typename" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="2in1convertible" {% if request.form.get('typename') == '2in1convertible' %}selected{% endif %}>2 in 1 Convertible</option>
+                            <option value="gaming" {% if request.form.get('typename') == 'gaming' %}selected{% endif %}>Gaming</option>
+                            <option value="netbook" {% if request.form.get('typename') == 'netbook' %}selected{% endif %}>Net Book</option>
+                            <option value="notebook" {% if request.form.get('typename') == 'notebook' %}selected{% endif %}>Note Book</option>
+                            <option value="ultrabook" {% if request.form.get('typename') == 'ultrabook' %}selected{% endif %}>Ultra Book</option>
+                            <option value="workstation" {% if request.form.get('typename') == 'workstation' %}selected{% endif %}>Workstation</option>
+                        </select> 
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="opsys">Operating System</label>           
+                    <div class = "custom_select">
+                        <select name="opsys" id="opsys" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="windows" {% if request.form.get('opsys') == 'windows' %}selected{% endif %}>Windows</option>
+                            <option value="mac" {% if request.form.get('opsys') == 'mac' %}selected{% endif %}>Mac</option>
+                            <option value="linux" {% if request.form.get('opsys') == 'linux' %}selected{% endif %}>Linux</option>
+                            <option value="other" {% if request.form.get('opsys') == 'other' %}selected{% endif %}>Other</option>
+                        </select> 
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="cpuname">CPU</label>   
+                    <div class = "custom_select">
+                        <select name="cpuname" id="cpuname" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="intelcorei3" {% if request.form.get('cpuname') == 'intelcorei3' %}selected{% endif %}>Intel Core i3</option>
+                            <option value="intelcorei5" {% if request.form.get('cpuname') == 'intelcorei5' %}selected{% endif %}>Intel Core i5</option>
+                            <option value="intelcorei7" {% if request.form.get('cpuname') == 'intelcorei7' %}selected{% endif %}>Intel Core i7</option>
+                            <option value="amd" {% if request.form.get('cpuname') == 'amd' %}selected{% endif %}>AMD</option>
+                            <option value="other" {% if request.form.get('cpuname') == 'other' %}selected{% endif %}>Other</option>
+                        </select>  
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for="gpuname">GPU</label>
+                    <div class = "custom_select">
+                        <select name="gpuname" id="gpuname" required>
+                            <option value="" selected hidden>Select</option>
+                            <option value="intel" {% if request.form.get('gpuname') == 'intel' %}selected{% endif %}>Intel</option>
+                            <option value="amd" {% if request.form.get('gpuname') == 'amd' %}selected{% endif %}>AMD</option>
+                            <option value="nvidia" {% if request.form.get('gpuname') == 'nvidia' %}selected{% endif %}>Nvidia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="check">   
+                    <div>
+                        <label for="touchscreen">Touch Screen</label>
+                        <input type="checkbox" id="touchscreen" name="touchscreen" {% if request.form.get('touchscreen') %}checked{% endif %}>
+                    </div>
+                    <div>
+                        <label for="ips">IPS</label>
+                        <input type="checkbox" id="ips" name="ips" {% if request.form.get('ips') %}checked{% endif %}>
+                    </div>
+                </div>
+    
+                <div class="inputfield">
+                    <button class="btn" id="predict-button" type="submit">
+                        <span class="btn-label">Predict Price</span>
+                        <span class="loader" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </section>
+
+        <div class="result" aria-live="polite">
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% else %}
+            <p>Estimated Price: ${{pred_value}}</p>
+            {% endif %}
+        </div>
+        <script>
+            document.querySelector('form').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const button = document.getElementById('predict-button');
+                const result = document.querySelector('.result');
+                button.disabled = true;
+                button.querySelector('.btn-label').textContent = 'Calculating estimate...';
+                button.querySelector('.loader').classList.add('is-visible');
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: new FormData(this),
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+                    if (!response.ok) {
+                        throw new Error('Prediction request failed');
+                    }
+
+                    const html = await response.text();
+                    const documentCopy = new DOMParser().parseFromString(html, 'text/html');
+                    result.innerHTML = documentCopy.querySelector('.result').innerHTML;
+                } catch (error) {
+                    result.innerHTML = '<p class="error">Unable to calculate the estimate. Please try again.</p>';
+                } finally {
+                    button.disabled = false;
+                    button.querySelector('.btn-label').textContent = 'Predict Price';
+                    button.querySelector('.loader').classList.remove('is-visible');
+                }
+            });
+        </script>
+    </main>
+</body>
+</html>

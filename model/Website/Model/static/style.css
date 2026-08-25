@@ -1,0 +1,356 @@
+:root {
+    --background: #090d12;
+    --surface: rgba(20, 28, 38, 0.78);
+    --surface-soft: rgba(255, 255, 255, 0.045);
+    --line: rgba(255, 255, 255, 0.11);
+    --text: #f3f7fa;
+    --muted: #9caebb;
+    --accent: #43d4c0;
+    --danger: #ff947d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 44px 18px;
+    color: var(--text);
+    background: radial-gradient(circle at 12% 8%, rgba(67, 212, 192, 0.14), transparent 30%), radial-gradient(circle at 90% 92%, rgba(92, 133, 214, 0.13), transparent 33%), var(--background);
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 42px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+}
+
+.hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 32px;
+}
+
+.eyebrow {
+    margin-bottom: 9px;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.title {
+    max-width: 520px;
+    color: var(--text);
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.05;
+    letter-spacing: 0;
+}
+
+.subtitle {
+    max-width: 510px;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.status {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border: 1px solid rgba(67, 212, 192, 0.25);
+    border-radius: 999px;
+    color: #b7eee7;
+    background: rgba(67, 212, 192, 0.08);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+}
+
+.model-card,
+.form-panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface-soft);
+}
+
+.model-card {
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.model-copy {
+    max-width: 650px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.model-note {
+    margin-top: 16px;
+    color: #b6c3cc;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.model-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+}
+
+.model-stats div {
+    display: grid;
+    gap: 5px;
+}
+
+.model-stats strong {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.model-stats span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.form-panel {
+    padding: 24px;
+}
+
+.form-panel > .section-heading {
+    margin-bottom: 22px;
+}
+
+.form {
+    width: 100%;
+}
+
+.inputfield {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 15px;
+}
+
+.inputfield label {
+    width: 165px;
+    flex: 0 0 165px;
+    color: #d9e3e9;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.input,
+.custom_select select {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    outline: none;
+    color: var(--text);
+    background: rgba(5, 10, 15, 0.5);
+    font-size: 14px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.custom_select {
+    position: relative;
+    width: 100%;
+}
+
+.custom_select select {
+    appearance: none;
+    padding-right: 36px;
+}
+
+.custom_select::after {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: var(--accent);
+    content: '\25BE';
+    pointer-events: none;
+}
+
+.input:focus,
+.custom_select select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(67, 212, 192, 0.13);
+}
+
+option {
+    color: var(--text);
+    background: #17212b;
+}
+
+.check {
+    display: flex;
+    gap: 24px;
+    margin: 8px 0 22px 183px;
+}
+
+.check div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.check label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 45px;
+    border: 0;
+    border-radius: 9px;
+    color: #061313;
+    background: var(--accent);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 160ms ease, transform 160ms ease;
+}
+
+.btn:hover {
+    background: #75e5d6;
+    transform: translateY(-1px);
+}
+
+.btn:disabled {
+    background: #256d68;
+    cursor: wait;
+    transform: none;
+}
+
+.loader {
+    display: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(6, 19, 19, 0.3);
+    border-top-color: #061313;
+    border-radius: 50%;
+    animation: spin 700ms linear infinite;
+}
+
+.loader.is-visible {
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.result {
+    margin-top: 18px;
+}
+
+.result p {
+    padding: 16px;
+    border: 1px solid rgba(67, 212, 192, 0.25);
+    border-radius: 10px;
+    color: #b7eee7;
+    background: rgba(67, 212, 192, 0.08);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.result .error {
+    border-color: rgba(255, 148, 125, 0.3);
+    color: var(--danger);
+    background: rgba(255, 148, 125, 0.08);
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 18px 10px;
+    }
+
+    .wrapper {
+        padding: 25px 16px;
+    }
+
+    .hero {
+        display: block;
+    }
+
+    .status {
+        width: fit-content;
+        margin-top: 20px;
+    }
+
+    .model-card,
+    .form-panel {
+        padding: 18px;
+    }
+
+    .model-stats {
+        gap: 8px;
+    }
+
+    .inputfield {
+        display: block;
+    }
+
+    .inputfield label {
+        display: block;
+        width: auto;
+        margin-bottom: 7px;
+    }
+
+    .check {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Laptop price prediction workflow</title>
+  <desc id="desc">Workflow from laptop dataset through feature preparation and random forest regression to a dollar estimate.</desc>
+  <rect width="1200" height="360" rx="18" fill="#f6f1e8"/>
+  <text x="70" y="62" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#18394b">From specifications to estimate</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(70 125)">
+      <rect width="220" height="140" rx="12" fill="#18394b"/>
+      <text x="24" y="42" font-size="14" font-weight="700" letter-spacing="2" fill="#e2aa54">01 / DATA</text>
+      <text x="24" y="82" font-size="22" font-weight="700" fill="#fffdf8">Laptop dataset</text>
+      <text x="24" y="112" font-size="15" fill="#d8e4e2">CSV price records</text>
+    </g>
+    <path d="M315 195h75" stroke="#b26543" stroke-width="4"/><path d="m380 181 18 14-18 14" fill="none" stroke="#b26543" stroke-width="4"/>
+    <g transform="translate(420 125)">
+      <rect width="220" height="140" rx="12" fill="#65b6a7"/>
+      <text x="24" y="42" font-size="14" font-weight="700" letter-spacing="2" fill="#18394b">02 / FEATURES</text>
+      <text x="24" y="82" font-size="22" font-weight="700" fill="#18394b">Prepare inputs</text>
+      <text x="24" y="112" font-size="15" fill="#18394b">Encode categories</text>
+    </g>
+    <path d="M665 195h75" stroke="#b26543" stroke-width="4"/><path d="m730 181 18 14-18 14" fill="none" stroke="#b26543" stroke-width="4"/>
+    <g transform="translate(770 125)">
+      <rect width="220" height="140" rx="12" fill="#e2aa54"/>
+      <text x="24" y="42" font-size="14" font-weight="700" letter-spacing="2" fill="#18394b">03 / MODEL</text>
+      <text x="24" y="82" font-size="22" font-weight="700" fill="#18394b">Random forest</text>
+      <text x="24" y="112" font-size="15" fill="#18394b">Learn price patterns</text>
+    </g>
+    <path d="M1015 195h75" stroke="#b26543" stroke-width="4"/><path d="m1080 181 18 14-18 14" fill="none" stroke="#b26543" stroke-width="4"/>
+    <text x="1102" y="181" font-size="15" font-weight="700" fill="#b26543">USD</text>
+    <text x="1102" y="215" font-size="15" fill="#18394b">estimate</text>
+  </g>
+</svg>

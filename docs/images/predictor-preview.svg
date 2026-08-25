@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Laptop Price Predictor preview</title>
+  <desc id="desc">A visual preview of the laptop price prediction form and estimated price result.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11283b"/>
+      <stop offset="1" stop-color="#1e5260"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#08141e" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="820" fill="url(#bg)"/>
+  <circle cx="1260" cy="80" r="190" fill="#e2aa54" opacity=".16"/>
+  <circle cx="120" cy="760" r="220" fill="#65b6a7" opacity=".13"/>
+  <rect x="105" y="78" width="1190" height="665" rx="20" fill="#f6f1e8" filter="url(#shadow)"/>
+  <rect x="105" y="78" width="1190" height="84" rx="20" fill="#18394b"/>
+  <circle cx="144" cy="120" r="9" fill="#e2aa54"/>
+  <text x="174" y="128" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#f6f1e8">Laptop Price Predictor</text>
+  <text x="178" y="215" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#b26543">CONFIGURATION</text>
+  <text x="178" y="260" font-family="Georgia, serif" font-size="38" font-weight="700" fill="#18394b">Estimate a laptop's value</text>
+  <text x="178" y="294" font-family="Arial, sans-serif" font-size="17" fill="#53636b">Configure the key specifications to generate a data-based guide price.</text>
+  <g font-family="Arial, sans-serif" font-size="15" fill="#18394b">
+    <text x="178" y="355">RAM</text><text x="475" y="355">WEIGHT</text><text x="772" y="355">COMPANY</text>
+    <text x="178" y="483">LAPTOP TYPE</text><text x="475" y="483">OPERATING SYSTEM</text><text x="772" y="483">GPU</text>
+  </g>
+  <g fill="#fffdf8" stroke="#c7c3b9" stroke-width="2">
+    <rect x="178" y="372" width="240" height="58" rx="8"/><rect x="475" y="372" width="240" height="58" rx="8"/><rect x="772" y="372" width="240" height="58" rx="8"/>
+    <rect x="178" y="500" width="240" height="58" rx="8"/><rect x="475" y="500" width="240" height="58" rx="8"/><rect x="772" y="500" width="240" height="58" rx="8"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="17" fill="#53636b">
+    <text x="199" y="408">16 GB</text><text x="496" y="408">1 - 1.9 kg</text><text x="793" y="408">Lenovo</text>
+    <text x="199" y="536">Notebook</text><text x="496" y="536">Windows</text><text x="793" y="536">Nvidia</text>
+  </g>
+  <rect x="1045" y="372" width="220" height="186" rx="12" fill="#e2aa54"/>
+  <text x="1072" y="413" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1" fill="#18394b">ESTIMATED PRICE</text>
+  <text x="1072" y="476" font-family="Georgia, serif" font-size="39" font-weight="700" fill="#18394b">$1,028.40</text>
+  <text x="1072" y="515" font-family="Arial, sans-serif" font-size="15" fill="#18394b">A practical guide, not a quote</text>
+  <rect x="178" y="620" width="190" height="55" rx="8" fill="#b26543"/>
+  <text x="218" y="655" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#fffdf8">Predict Price</text>
+  <text x="410" y="654" font-family="Arial, sans-serif" font-size="15" fill="#53636b">Random forest model | 76.4% reported accuracy</text>
+</svg>

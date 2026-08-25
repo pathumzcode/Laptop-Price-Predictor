@@ -1,13 +1,30 @@
 from flask import Flask, render_template, request
+import hashlib
+import os
 import pickle
 from pathlib import Path
 import numpy as np
 
 app = Flask(__name__)
 EUR_TO_USD = 1.17
+ALLOWED_VALUES = {
+    'ram': {'2', '4', '6', '8', '12', '16', '24', '32', '64'},
+    'weight': {'0.92', '1.5', '2.0', '2.5', '3.0', '4.0'},
+    'company': {'acer', 'apple', 'asus', 'dell', 'hp', 'lenovo', 'msi', 'other', 'toshiba'},
+    'typename': {'2in1convertible', 'gaming', 'netbook', 'notebook', 'ultrabook', 'workstation'},
+    'opsys': {'linux', 'mac', 'other', 'windows'},
+    'cpuname': {'amd', 'intelcorei3', 'intelcorei5', 'intelcorei7', 'other'},
+    'gpuname': {'amd', 'intel', 'nvidia'},
+}
 
 def prediction(lst, ram, weight, company, typename, opsys, cpu, gpu, touchscreen, ips):
     filename = Path(__file__).with_name('predictor.pickle')
+    expected_hash = os.environ.get('MODEL_SHA256')
+    if expected_hash:
+        actual_hash = hashlib.sha256(filename.read_bytes()).hexdigest()
+        if actual_hash.lower() != expected_hash.lower():
+            raise RuntimeError('The model integrity check failed.')
+
     with open(filename, 'rb') as file:
         model = pickle.load(file)
 
@@ -40,56 +57,31 @@ def prediction(lst, ram, weight, company, typename, opsys, cpu, gpu, touchscreen
 @app.route('/', methods =['POST', 'GET'])
 def index():
     pred_value = 0
+    error = None
     if request.method == 'POST':
-        # Handle POST request here
-        ram = request.form.get('ram')
-        weight = request.form.get('weight')
-        company = request.form.get('company')
-        typename = request.form.get('typename')
-        opsys = request.form.get('opsys')
-        cpu = request.form.get('cpuname')
-        gpu = request.form.get('gpuname')
-        touchscreen = request.form.getlist('touchscreen')
-        ips = request.form.getlist('ips')
+        values = {field: request.form.get(field) for field in ALLOWED_VALUES}
+        invalid_fields = [
+            field for field, allowed in ALLOWED_VALUES.items()
+            if values[field] not in allowed
+        ]
 
-        print(f"RAM: {ram}, Weight: {weight}, Company: {company}, Type Name: {typename}, OS: {opsys}, CPU: {cpu}, GPU: {gpu}, Touchscreen: {touchscreen}, IPS: {ips}")  
+        if invalid_fields:
+            error = 'Please select a valid value for every laptop field.'
+        else:
+            touchscreen = bool(request.form.getlist('touchscreen'))
+            ips = bool(request.form.getlist('ips'))
+            try:
+                predicted_eur = float(prediction(
+                    [], values['ram'], values['weight'], values['company'],
+                    values['typename'], values['opsys'], values['cpuname'],
+                    values['gpuname'], touchscreen, ips
+                ))
+                pred_value = round(predicted_eur * EUR_TO_USD, 2)
+            except (OSError, RuntimeError, TypeError, ValueError):
+                app.logger.exception('Laptop price prediction failed')
+                error = 'Unable to calculate the estimate right now.'
 
-        feature_list = []
-        feature_list.append(int(ram))
-        feature_list.append(float(weight))
-        feature_list.append(len(touchscreen))
-        feature_list.append(len(ips))
-
-        company_list = ['acer', 'apple', 'asus', 'dell', 'hp', 'lenovo', 'msi', 'other', 'toshiba']
-        typename_list = ['2in1convertible', 'gaming', 'netbook', 'notebook', 'ultrabook', 'workstation']
-        opsys_list = ['linux', 'mac','others', 'windows']
-        cpu_list = ['amd', 'intelcorei3', 'intelcorei5', 'intelcorei7','other']
-        gpu_list = ['amd','intel','nvidia']
-
-        def traverse(list, value):
-            for item in list:
-                if item == value:
-                    feature_list.append(1)
-                else:
-                    feature_list.append(0)
-        
-        traverse(company_list, company)
-        traverse(typename_list, typename)
-        traverse(opsys_list, opsys)
-        traverse(cpu_list, cpu)
-        traverse(gpu_list, gpu)
-
-        print(f"Feature List: {feature_list}")  # Print the feature list for debugging
-
-        predicted_eur = float(prediction(
-            feature_list, ram, weight, company, typename, opsys, cpu, gpu,
-            touchscreen, ips
-        ))
-        pred_value = round(predicted_eur * EUR_TO_USD, 2)
-        print(f"Predicted Value (EUR): {predicted_eur:.2f}")
-        print(f"Predicted Value (USD): {pred_value:.2f}")
-
-    return render_template('index.html', pred_value=pred_value)
+    return render_template('index.html', pred_value=pred_value, error=error)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

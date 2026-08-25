@@ -313,6 +313,23 @@ option {
     font-size: 13px;
 }
 
+.site-footer {
+    display: grid;
+    gap: 6px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.site-footer strong {
+    color: #d9e3e9;
+    font-weight: 600;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 18px 10px;

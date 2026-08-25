@@ -1,1 +1,1 @@
-web: gunicorn --chdir model/Website/Model app:app
+web: guniconrn app:app

@@ -3,7 +3,7 @@ import hashlib
 import os
 import pickle
 from pathlib import Path
-import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 EUR_TO_USD = 1.17
@@ -18,7 +18,7 @@ ALLOWED_VALUES = {
 }
 
 def prediction(lst, ram, weight, company, typename, opsys, cpu, gpu, touchscreen, ips):
-    filename = Path(__file__).with_name('predictor.pickle')
+    filename = Path(__file__).with_name('predictor_normalized.pickle')
     expected_hash = os.environ.get('MODEL_SHA256')
     if expected_hash:
         actual_hash = hashlib.sha256(filename.read_bytes()).hexdigest()
@@ -28,31 +28,29 @@ def prediction(lst, ram, weight, company, typename, opsys, cpu, gpu, touchscreen
     with open(filename, 'rb') as file:
         model = pickle.load(file)
 
-    features = list(model.feature_names_in_)
-    values = np.zeros((1, len(features)))
-
-    def set_feature(prefix, value):
-        value = str(value).lower().replace(' ', '')
-        for position, feature in enumerate(features):
-            normalized = feature.lower().replace(' ', '')
-            if normalized.startswith(prefix.lower()) and value in normalized:
-                values[0, position] = 1
-                return
-
-    set_feature('Company_', company)
-    set_feature('TypeName_', typename)
-    set_feature('OpSys_', 'Other' if opsys == 'other' else opsys)
-    set_feature('Cpu_', cpu.replace('intelcore', 'Intel Core '))
-    set_feature('Gpu_', gpu)
-    set_feature('Ram_', f'{ram}GB')
-    set_feature('Weight_', f'{weight}kg')
-
-    if touchscreen:
-        set_feature('Touchscreen_', 'Yes')
-    if ips:
-        set_feature('IPS_', 'Yes')
-
-    return model.predict(values)[0]
+    form_values = {
+        'Ram_GB': float(ram),
+        'Weight_KG': float(weight),
+        'Company': {
+            'acer': 'Acer', 'apple': 'Apple', 'asus': 'Asus',
+            'dell': 'Dell', 'hp': 'HP', 'lenovo': 'Lenovo',
+            'msi': 'MSI', 'toshiba': 'Toshiba', 'other': 'Other',
+        }[company],
+        'TypeName': {
+            '2in1convertible': '2 in 1 Convertible', 'gaming': 'Gaming',
+            'netbook': 'Netbook', 'notebook': 'Notebook',
+            'ultrabook': 'Ultrabook', 'workstation': 'Workstation',
+        }[typename],
+        'OpSys': {'windows': 'Windows', 'mac': 'Mac', 'linux': 'Linux', 'other': 'Other'}[opsys],
+        'CPU': {
+            'intelcorei3': 'Intel Core i3', 'intelcorei5': 'Intel Core i5',
+            'intelcorei7': 'Intel Core i7', 'amd': 'AMD', 'other': 'Other',
+        }[cpu],
+        'GPU': {'intel': 'Intel', 'amd': 'AMD', 'nvidia': 'Nvidia'}[gpu],
+        'Touchscreen': 'Yes' if touchscreen else 'No',
+        'IPS': 'Yes' if ips else 'No',
+    }
+    return model.predict(pd.DataFrame([form_values]))[0]
 
 @app.route('/', methods =['POST', 'GET'])
 def index():

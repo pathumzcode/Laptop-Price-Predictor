@@ -19,10 +19,12 @@ model/
 |   `-- laptop_price.csv
 |-- model building.ipynb
 |-- predictor.pickle
+|-- train_normalized_model.py
+|-- normalized_model_training.ipynb
 `-- Website/
 	`-- Model/
 		|-- app.py
-		|-- predictor.pickle
+		|-- predictor_normalized.pickle
 		|-- templates/
 		`-- static/
 ```
@@ -56,12 +58,12 @@ On Windows Command Prompt, activate the environment with:
 .venv\Scripts\activate
 ```
 
-The application loads `predictor.pickle` from the same directory as `app.py`. Keep the model file in that location when moving or deploying the web app.
+The application loads `predictor_normalized.pickle` from the same directory as `app.py`. Keep the model file in that location when moving or deploying the web app.
 
 For a production deployment, set `MODEL_SHA256` to the SHA-256 hash of the trusted model file and use a production WSGI server instead of Flask's built-in server:
 
 ```powershell
-$env:MODEL_SHA256 = (Get-FileHash .\predictor.pickle -Algorithm SHA256).Hash
+$env:MODEL_SHA256 = (Get-FileHash .\predictor_normalized.pickle -Algorithm SHA256).Hash
 python -m pip install waitress
 waitress-serve --listen=127.0.0.1:5000 app:app
 ```
@@ -78,7 +80,7 @@ python -m pip install jupyter pandas matplotlib seaborn scikit-learn
 jupyter notebook "model building.ipynb"
 ```
 
-The notebook reads `data set/laptop_price.csv`, prepares categorical features, compares regression models, and saves the selected model as `predictor.pickle`. If you retrain the model, copy the resulting pickle into `model/Website/Model/` so the Flask app uses the new model.
+The original notebook reads `data set/laptop_price.csv`, prepares categorical features, compares regression models, and saves the original `predictor.pickle`. The normalized training script and notebook convert raw dataset values to the same categories used by the web form, normalize RAM and weight, evaluate the model, and save `predictor_normalized.pickle` directly into `model/Website/Model/`.
 
 ## Input Categories
 

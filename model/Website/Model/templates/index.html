@@ -8,34 +8,22 @@
     <title>Laptop Price Predictor</title>
 </head>
 <body>
-    <main class="wrapper">
-        <header class="hero">
-            <div>
-                <p class="eyebrow">Machine Learning Model</p>
-                <h1 class="title">Laptop Price Predictor</h1>
-                <p class="subtitle">A practical estimate based on hardware, operating system, and display features.</p>
-            </div>
-            <div class="status"><span></span> Model ready</div>
-        </header>
+    <main class="page-shell">
+        <nav class="top-nav" aria-label="Primary navigation">
+            <div class="brand"><span class="brand-icon" aria-hidden="true">▣</span> Laptop Price Predictor</div>
+            <div class="status"><span></span> Model Ready</div>
+        </nav>
 
-        <section class="model-card" aria-labelledby="model-heading">
-            <div class="section-heading">
-                <p class="eyebrow">About the model</p>
-                <h2 id="model-heading">What this estimate means</h2>
-            </div>
-            <p class="model-copy">Enter the laptop details to receive an estimated price in US dollars. Use the result as a helpful guide when comparing laptops, not as a guaranteed selling price.</p>
-            <div class="model-stats">
-                <div><strong>76.4%</strong><span>predicted accuracy</span></div>
-                <div><strong>USD</strong><span>price currency</span></div>
-                <div><strong>Guide</strong><span>not a fixed price</span></div>
-            </div>
-            <p class="model-note">⚠️ Accuracy may change because predictions depend on the training dataset and current market prices.</p>
-        </section>
+        <header class="hero">
+            <p class="eyebrow">AI-powered price estimation</p>
+            <h1 class="title">Predict Your Laptop Price</h1>
+            <p class="subtitle">Enter a few laptop specifications to get an estimated price.</p>
+        </header>
 
         <section class="form-panel" aria-labelledby="details-heading">
             <div class="section-heading">
-                <p class="eyebrow">Configuration</p>
-                <h2 id="details-heading">Enter laptop details</h2>
+                <h2 id="details-heading">Laptop Specifications</h2>
+                <p class="form-subtitle">Select the specifications of your laptop.</p>
             </div>
         <form action="/" method="POST">
             <div class="form">
@@ -158,16 +146,20 @@
         </form>
         </section>
 
-        <div class="result" aria-live="polite">
+        <section class="result" aria-live="polite" aria-label="Price estimate">
             {% if error %}
             <p class="error">{{ error }}</p>
+            {% elif pred_value %}
+            <p class="result-label">Estimated Price</p>
+            <p class="price">${{pred_value}}</p>
+            <p class="result-copy">Estimated based on the selected laptop specifications.</p>
             {% else %}
-            <p>Estimated Price: ${{pred_value}}</p>
+            <p class="placeholder">Your estimated price will appear here</p>
             {% endif %}
-        </div>
+        </section>
+        <p class="disclaimer">Price estimates are for reference and may differ from actual market prices.</p>
         <footer class="site-footer">
-            <p><strong>&copy; 2026 Pathum Lakshan Bandara. All Rights Reserved.</strong></p>
-            <p>Developed by <strong>Pathum Lakshan Bandara</strong></p>
+            <p>&copy; 2026 Pathum Lakshan Bandara</p>
         </footer>
         <script>
             document.querySelector('form').addEventListener('submit', async function (event) {
@@ -175,7 +167,7 @@
                 const button = document.getElementById('predict-button');
                 const result = document.querySelector('.result');
                 button.disabled = true;
-                button.querySelector('.btn-label').textContent = 'Calculating estimate...';
+                button.querySelector('.btn-label').textContent = 'Predicting...';
                 button.querySelector('.loader').classList.add('is-visible');
 
                 try {
